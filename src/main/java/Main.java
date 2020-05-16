@@ -1,17 +1,31 @@
+import com.opencsv.CSVWriter;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Random;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args)throws IOException {
+        String filePath = "C:\\TADS\\FileD.csv";
+        File file = new File(filePath);
+
+        FileWriter fileWriter = new FileWriter(file);
+
+        CSVWriter writer = new CSVWriter(fileWriter);
+
+        int countOfElements = 25000000;
         var random = new Random();
-        var queue = new Queue(1000000000);
-        int countOfElementsForTest= 10000000;
+
+        var queue = new Queue(countOfElements+1);
+        var stack = new MyStack(countOfElements+1);
+
         //Test values
-        int array []= new int [countOfElementsForTest];
+        int array []= new int [countOfElements];
         for (int i = 0; i <array.length ; i++) {
             array[i] = random.nextInt();
         }
        //Check stack push
-        var stack = new MyStack(100000000);
 
         long start = System.currentTimeMillis();
 
@@ -20,7 +34,7 @@ public class Main {
         }
         long end = System.currentTimeMillis();
         long elapsedTime = end - start;
-        System.out.println("Время на push "+array.length+" елементов = "+elapsedTime);
+        writer.writeNext (new String[]{"Время на push " + array.length + " елементов = " + elapsedTime});
         //Check stack pop
         start = System.currentTimeMillis();
         for(int q = 0; q<array.length;q++){
@@ -28,7 +42,7 @@ public class Main {
         }
          end = System.currentTimeMillis();
          elapsedTime = end - start;
-        System.out.println("Время на pop "+array.length+" елементов = "+elapsedTime);
+        writer.writeNext(new String[]{"Время на pop " + array.length + " елементов = " + elapsedTime});
         //Check  Queue put
         start = System.currentTimeMillis();
         for(int q = 0; q<array.length;q++){
@@ -36,7 +50,7 @@ public class Main {
         }
         end = System.currentTimeMillis();
         elapsedTime = end - start;
-        System.out.println("Время на put "+array.length+" елементов = "+elapsedTime);
+        writer.writeNext(new String[]{"Время на put " + array.length + " елементов = " + elapsedTime});
         //Check  Queue take
         start = System.currentTimeMillis();
         for(int q = 0; q<array.length;q++){
@@ -44,7 +58,7 @@ public class Main {
         }
         end = System.currentTimeMillis();
         elapsedTime = end - start;
-        System.out.println("Время на take "+array.length+" елементов = "+elapsedTime);
+        writer.writeNext(new String[]{"Время на take " + array.length + " елементов = " + elapsedTime});
     }
 }
 
