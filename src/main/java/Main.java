@@ -7,14 +7,8 @@ import java.util.Random;
 
 public class Main {
     public static void main(String[] args)throws IOException {
-        String filePath = "C:\\TADS\\FileD.csv";
-        File file = new File(filePath);
 
-        FileWriter fileWriter = new FileWriter(file);
-
-        CSVWriter writer = new CSVWriter(fileWriter);
-
-        int countOfElements = 25000000;
+        int countOfElements = 1000000;
         var random = new Random();
 
         var queue = new Queue(countOfElements+1);
@@ -22,6 +16,7 @@ public class Main {
 
         //Test values
         int array []= new int [countOfElements];
+        int capas = array.length;
         for (int i = 0; i <array.length ; i++) {
             array[i] = random.nextInt();
         }
@@ -34,7 +29,8 @@ public class Main {
         }
         long end = System.currentTimeMillis();
         long elapsedTime = end - start;
-        writer.writeNext (new String[]{"Время на push " + array.length + " елементов = " + elapsedTime});
+        System.out.println(" Elements = "+capas+ " Time: " + elapsedTime);
+
         //Check stack pop
         start = System.currentTimeMillis();
         for(int q = 0; q<array.length;q++){
@@ -42,7 +38,6 @@ public class Main {
         }
          end = System.currentTimeMillis();
          elapsedTime = end - start;
-        writer.writeNext(new String[]{"Время на pop " + array.length + " елементов = " + elapsedTime});
         //Check  Queue put
         start = System.currentTimeMillis();
         for(int q = 0; q<array.length;q++){
@@ -50,15 +45,15 @@ public class Main {
         }
         end = System.currentTimeMillis();
         elapsedTime = end - start;
-        writer.writeNext(new String[]{"Время на put " + array.length + " елементов = " + elapsedTime});
-        //Check  Queue take
+        System.out.println(" Elements = "+capas+ " Time: " + elapsedTime);
         start = System.currentTimeMillis();
         for(int q = 0; q<array.length;q++){
             queue.Take();
         }
         end = System.currentTimeMillis();
         elapsedTime = end - start;
-        writer.writeNext(new String[]{"Время на take " + array.length + " елементов = " + elapsedTime});
+       // writer.writeNext(new String[]{"Время на take " + array.length + " елементов = " + elapsedTime});
+
     }
 }
 
